@@ -11,7 +11,11 @@ const story_template =
     "</fieldset>" +
     "<div class='button' onclick='delete_story({0})'>delete Story {1}</div>"+
     "</div></fieldset>";
-const new_story = "<div><input type='text' placeholder='Story name' name='s_name'><input type='button' value='done' onclick='create_story()'></div>";
+const new_story =
+    "<div>" +
+    "<input type='text' placeholder='Story name' name='s_name'>" +
+    "<input type='button' value='done' onclick='create_story()'>" +
+    "</div>";
 const character_template =
     "<fieldset><legend>{0}</legend><table>" +
     "<tr><td>Name:</td><td>{0}</td><td class='button' onclick='edit({6}, {7}, 0)'>edit</td></tr>" +
@@ -29,7 +33,7 @@ const new_character =
     "<tr><td>Alive:</td><td><input type='text' name='c_alive'/></td></tr>" +
     "<tr><td>Allies:</td><td><input type='text' name='c_allies'/></td></tr>" +
     "<tr><td>Enemies:</td><td><input type='text' name='c_enemies'/></td></tr>" +
-    "<tr><td colspan='2' onclick='add_char({0})'>add</td></tr>" +
+    "<tr><td colspan='2' class='button' onclick='add_char({0})'>add</td></tr>" +
     "<tr></tr></table>";
 
 // listeners
@@ -107,7 +111,7 @@ function update_stories() {
         tmp_chars = "";
         let story = stories[index_of_story];
         for(let index_of_char in story[1]) {
-            let char = story[1][0];
+            let char = story[1][index_of_char];
             tmp_chars += formatStringArr(character_template, char);
         }
         $('#chars_' + index_of_story).html(tmp_chars);
