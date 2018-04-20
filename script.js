@@ -1,6 +1,16 @@
 var stories = [];
 const save_name = "story_helper_by_zedrem";
-const story_template = "<fieldset id=\"story_{0}\"><legend>{1}</legend><div id='content_{0}'><fieldset><legend>Characters</legend><div onclick='add_new_character({0})' class='button'>new Character</div><div id='chars_{0}'></div></fieldset></div></fieldset>";
+const story_template =
+    "<fieldset id=\"story_{0}\">" +
+    "<legend>{1}</legend>" +
+    "<div id='content_{0}'>" +
+    "<fieldset>" +
+    "<legend>Characters</legend>" +
+    "<div onclick='add_new_character({0})' class='button'>new Character</div>" +
+    "<div id='chars_{0}'></div>" +
+    "</fieldset>" +
+    "<div class='button' onclick='delete_story({0})'>delete Story {1}</div>"+
+    "</div></fieldset>";
 const new_story = "<div><input type='text' placeholder='Story name' name='s_name'><input type='button' value='done' onclick='create_story()'></div>";
 const character_template =
     "<fieldset><legend>{0}</legend><table>" +
@@ -10,7 +20,8 @@ const character_template =
     "<tr><td>Alive:</td><td>{3}</td><td class='button' onclick='edit({6}, {7}, 3)'>edit</td></tr>" +
     "<tr><td>Allies:</td><td>{4}</td><td class='button' onclick='edit({6}, {7}, 4)'>edit</td></tr>" +
     "<tr><td>Enemies:</td><td>{5}</td><td class='button' onclick='edit({6}, {7}, 5)'>edit</td></tr>" +
-    "<tr></tr></table></fieldset>";
+    "<tr><div class='button' onclick='delete_character({6}, {7})'>delete Character {0}</div></tr>" +
+    "</table></fieldset>";
 const new_character =
     "<table><tr><td>Name:</td><td><input type='text' name='c_name'/></td></tr>" +
     "<tr><td>Group:</td><td><input type='text' name='c_group'/></td></tr>" +
@@ -22,6 +33,20 @@ const new_character =
     "<tr></tr></table>";
 
 // listeners
+function delete_character(story, char) {
+    if(confirm("Delete character " + stories[story][1][char][0] + "?")) {
+        stories[story][1].splice(char);
+    }
+    update_stories();
+}
+
+function delete_story(story) {
+    if(confirm("Delete story " + stories[story] + "?")) {
+        stories.splice(story);
+    }
+    update_stories();
+}
+
 function edit(story, char, attr) {
     stories[story][1][char][attr] = prompt("Please enter the new value:", stories[story][1][char][attr]);
     update_stories();
