@@ -41,7 +41,7 @@ function delete_character(story, char) {
 }
 
 function delete_story(story) {
-    if(confirm("Delete story " + stories[story] + "?")) {
+    if(confirm("Delete story " + stories[story][0] + "?")) {
         stories.splice(story);
     }
     update_stories();
